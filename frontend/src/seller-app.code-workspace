@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../../../seller-app"
+		},
+		{
+			"path": "../../../buyer-app"
+		},
+		{
+			"path": "../../../backend"
+		},
+		{
+			"path": "../../../ProjectNode"
+		},
+		{
+			"path": "../../../ecom_be"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../project"
+		},
+		{
+			"path": "../../../finx-dashboard"
+		}
+	],
+	"settings": {}
+}

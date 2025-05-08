@@ -1,0 +1,470 @@
+/*
+    customize plain links in login, usersignup, suppliersignup
+              -----------
+    log table:: sellerId, userId; productId; status; cretedAt    
+        => for every crud api run, log table post api will trigger or evry time new entry will be created in log table 
+*/
+
+{
+    dropdownOptions.map((option, idx) => {
+        // 'apps', 'Chatapp', 'Todo', {dashboard: []}, {apps: [{},{},{},...]}, ...
+
+        if (typeof option === 'string') {
+
+            // 'apps', 'Chatapp', 'Todo',
+            {
+                /* lower-left[dashboard]-top */
+            }
+
+            return (<div key={
+                idx
+            }
+
+                onClick={
+                    () => handleSelect(type, option)
+                }
+
+                style={
+                    {
+                        padding: '0.5rem 1rem',
+                        cursor: 'pointer',
+                        borderBottom: idx !== value.length - 1 ? '1px solid #eee' : 'none',
+                        backgroundColor: selectedValues[key] === option ? '#e6f7ff' : '#fff'
+                    }
+                }
+
+                onMouseEnter={
+                    (e) => (e.target.style.background = '#f0f0f0')
+                }
+
+                onMouseLeave={
+                    (e) => (e.target.style.background = selectedValues[key] === option ? '#e6f7ff' : '#fff')
+                }
+
+            > {
+                    option
+                }
+
+            </div>);
+        }
+
+        else if (typeof option === 'object') {
+            //  {dashboard: []}, {apps: [{},{},{},...]}, ...
+            const [key, value] = object.enteries(option)[0];
+            // [ [dashboard,[]] ], [ [apps,[{staff: []},{eCommerce: []},{Project: []},...]] ], ...    -> array of key-value pairs
+
+            // v = object.values(option);
+            value.map((option, idx) => {
+
+                // ['','', ...], [{staff: [...]},{eCommerce: [...]},{Project: [...]},...], ...
+                if (typeof option === 'string') {
+
+                    // '', '', '',
+                    return (<div key={
+                        idx
+                    }
+
+                        onClick={
+                            () => handleSelect(type, option)
+                        }
+
+                        style={
+                            {
+                                padding: '0.5rem 1rem',
+                                cursor: 'pointer',
+                                borderBottom: idx !== value.length - 1 ? '1px solid #eee' : 'none',
+                                backgroundColor: selectedValues[key] === option ? '#e6f7ff' : '#fff'
+                            }
+                        }
+
+                        onMouseEnter={
+                            (e) => (e.target.style.background = '#f0f0f0')
+                        }
+
+                        onMouseLeave={
+                            (e) => (e.target.style.background = selectedValues[key] === option ? '#e6f7ff' : '#fff')
+                        }
+
+                    > {
+                            option
+                        }
+
+                    </div>);
+                }
+
+                else if (typeof option === 'object') {
+                    // {staff: []},{eCommerce: []},{Project: []},...
+                }
+            })
+        }
+    })
+}
+
+{
+    /* x = dropdownOptions; */
+}
+
+{
+    /* style={{ marginBottom: '1.5rem', position: 'relative', width: '200px' }} */
+}
+
+{
+    /* lower-left[dashboard] */
+}
+
+//----------------------------------------------------------------------------------------------
+//================================================================================================
+// import React, { useEffect, useRef, useState } from 'react';
+
+// const AdminView = () => {
+//     const dropdownOptions = [
+//         {
+//             dashboard: [
+//                 'CRM',
+//                 'Analytics',
+//                 'Ecommerce',
+//                 'Team',
+//                 'Vendor',
+//                 'AI Chatbot'
+//             ]
+//         },
+//         {
+//             apps: [
+//                 'Chatapp',
+//                 'Todo',
+//                 {
+//                     staff: [
+//                         'Team Profile',
+//                         'Team Add',
+//                         'Team Update',
+//                         'Team List'
+//                     ]
+//                 },
+//                 {
+//                     eCommerce: [
+//                         'Product List',
+//                         'Add Product',
+//                         'Add Category',
+//                         'Add Sub Category',
+//                         'Order List'
+//                     ]
+//                 },
+//                 {
+//                     Project: [
+//                         'Project List',
+//                         'Overview',
+//                         'Create Project'
+//                     ]
+//                 }
+//             ]
+//         }
+//     ];
+
+//     const [openDropdown, setOpenDropdown] = useState(null);
+//     const [selectedValues, setSelectedValues] = useState({
+//         country: '',
+//         language: '',
+//         theme: ''
+//     });
+
+//     const dropdownRefs = {
+//         country: useRef(null),
+//         language: useRef(null),
+//         theme: useRef(null)
+//     };
+
+//     useEffect(() => {
+//         const handleClickOutside = (e) => {
+//             if (
+//                 openDropdown &&
+//                 dropdownRefs[openDropdown] &&
+//                 !dropdownRefs[openDropdown].current.contains(e.target)
+//             ) {
+//                 setOpenDropdown(null);
+//             }
+//         };
+//         document.addEventListener('mousedown', handleClickOutside);
+//         return () => document.removeEventListener('mousedown', handleClickOutside);
+//     }, [openDropdown]);
+
+//     const toggleDropdown = (type) => {
+//         setOpenDropdown(prev => (prev === type ? null : type));
+//     };
+
+//     const handleSelect = (type, value) => {
+//         setSelectedValues(prev => ({ ...prev, [type]: value }));
+//         setOpenDropdown(null);
+//     };
+
+//     const renderMenu = (menuItems, parentKey = '') => {
+//         return menuItems.map((item, idx) => {
+//             if (typeof item === 'string') {
+//                 return (
+//                     <div
+//                         key={parentKey + '-' + idx}
+//                         onClick={() => handleSelect('menu', item)}
+//                         style={{
+//                             padding: '0.5rem 1rem',
+//                             cursor: 'pointer',
+//                             borderBottom: '1px solid #eee',
+//                             backgroundColor: selectedValues.menu === item ? '#e6f7ff' : '#fff'
+//                         }}
+//                         onMouseEnter={(e) => (e.target.style.background = '#f0f0f0')}
+//                         onMouseLeave={(e) => (e.target.style.background = selectedValues.menu === item ? '#e6f7ff' : '#fff')}
+//                     >
+//                         {item}
+//                     </div>
+//                 );
+//             } else if (typeof item === 'object') {
+//                 return Object.entries(item).map(([key, value]) => (
+//                     <div key={parentKey + '-' + key}
+//                         style={
+//                             {
+//                                 // height: isCollapsed ? '0px' : '250px',
+//                                 display: 'flex',
+//                                 flexDirection: 'column',
+//                                 transition: 'height 0.3s ease',
+//                                 flexShrink: 0,
+//                                 padding: '10px'
+//                             }
+//                         }
+
+//                         ref={
+//                             dropdownRefs[key]
+//                         }
+
+//                     // style={{ marginBottom: '1.5rem', position: 'relative', width: '200px' }}
+//                     >
+//                         <div
+//                             style={
+//                                 {
+//                                     fontWeight: 'bold', padding: '0.5rem 1rem', backgroundColor: '#f9f9f9',
+
+//                                     // padding: isCollapsed ? '22px' : '10px',
+//                                     // backgroundColor: '#111',
+//                                     position: 'relative',
+//                                     display: 'flex',
+//                                     justifyContent: 'space-between'
+//                                 }
+//                             }
+
+//                             // onClick={() => { setToggle(!toggle) }}
+//                             onClick={
+//                                 () => toggleDropdown(key)
+//                             }
+
+//                         // style={{  }}
+//                         >
+//                             <span> {key} </span>
+//                             <span> {">"} </span>
+//                             {/* {key} */}
+//                         </div>
+//                         <div
+//                             style={{
+//                                 // flex: 1,
+//                                 // overflowY: 'auto'
+
+//                                 maxHeight: openDropdown === key ? '500px' : '0px',
+//                                 overflow: 'hidden',
+//                                 transition: 'max-height 0.3s ease',
+
+//                                 // position: 'absolute',
+//                                 // top: '105%',
+//                                 // left: 0,
+//                                 // right: 0,
+//                                 // backgroundColor: '#fff',
+//                                 // border: '1px solid #ccc',
+//                                 // borderRadius: '6px',
+//                                 // boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
+//                                 // zIndex: 10
+//                                 paddingLeft: '1rem'
+//                             }}>
+//                             {renderMenu(value, parentKey + '-' + key)}
+//                         </div>
+//                     </div>
+//                 ));
+//             }
+//             return null;
+//         });
+//     };
+
+//     return (
+//         <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', border: '1px solid black' }}>
+//             <div style={{ display: 'flex', alignItems: 'center', position: 'sticky', top: '0px', border: '1px solid green', padding: '10px 20px' }}>
+//                 <div style={{ width: '200px' }}><img src={'/full-logo.png'} alt="Logo" /></div>
+//                 <div><input type='text' placeholder='Search...' /></div>
+//                 <div></div>
+//             </div>
+//             <div style={{ display: 'flex', flex: '1', border: '1px solid blue' }}>
+//                 <div style={{ border: '5px solid orange', width: '200px' }}>
+//                     {renderMenu(dropdownOptions)}
+//                 </div>
+//                 <div style={{ border: '5px solid pink', display: 'flex', flex: 1 }}>
+//                     {/* Main content */}
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default AdminView;
+
+//=========================================================================
+// // import React, { useState } from 'react';
+
+// // const DynamicDropdowns = () => {
+// //     const optionsList = ['Option A', 'Option B', 'Option C', 'Option D'];
+
+// //     // Initial state: all dropdowns closed and no selection
+// //     const [openIndex, setOpenIndex] = useState(null); // to track which dropdown is open
+// //     const [selectedValues, setSelectedValues] = useState({}); // to track selected values per dropdown
+
+// //     const handleToggleDropdown = (index) => {
+// //         setOpenIndex(prev => (prev === index ? null : index)); // toggle open/close
+// //     };
+
+// //     const handleSelectChange = (index, value) => {
+// //         setSelectedValues(prev => ({
+// //             ...prev,
+// //             [index]: value
+// //         }));
+// //         setOpenIndex(null); // Close the dropdown after selection
+// //     };
+
+// //     return (
+// //         <div>
+// //             {optionsList.map((_, index) => (
+// //                 <div key={index} style={{ marginBottom: '1rem' }}>
+// //                     <button onClick={() => handleToggleDropdown(index)}>
+// //                         {selectedValues[index] || `Select from Dropdown ${index + 1}`}
+// //                     </button>
+
+// //                     {openIndex === index && (
+// //                         <select
+// //                             autoFocus
+// //                             onBlur={() => setOpenIndex(null)} // Close on blur
+// //                             value={selectedValues[index] || ''}
+// //                             onChange={(e) => handleSelectChange(index, e.target.value)}
+// //                         >
+// //                             <option value="" disabled>Select...</option>
+// //                             <option value="One">One</option>
+// //                             <option value="Two">Two</option>
+// //                             <option value="Three">Three</option>
+// //                         </select>
+// //                     )}
+// //                 </div>
+// //             ))}
+// //         </div>
+// //     );
+// // };
+
+// // export default DynamicDropdowns;
+
+// import React, { useState, useRef, useEffect } from 'react';
+
+// const FixedDropdowns = () => {
+//     const dropdownOptions = {
+//         country: ['India', 'USA', 'UK'],
+//         language: ['English', 'Hindi', 'Spanish'],
+//         theme: ['Light', 'Dark', 'System'],
+//     };
+
+//     const [openDropdown, setOpenDropdown] = useState(null); // 'country', 'language', or 'theme'
+//     const [selectedValues, setSelectedValues] = useState({
+//         country: '',
+//         language: '',
+//         theme: ''
+//     });
+
+//     const dropdownRefs = {
+//         country: useRef(null),
+//         language: useRef(null),
+//         theme: useRef(null)
+//     };
+
+//     // Close dropdown on outside click
+//     useEffect(() => {
+//         const handleClickOutside = (e) => {
+//             if (
+//                 openDropdown &&
+//                 dropdownRefs[openDropdown] &&
+//                 !dropdownRefs[openDropdown].current.contains(e.target)
+//             ) {
+//                 setOpenDropdown(null);
+//             }
+//         };
+//         document.addEventListener('mousedown', handleClickOutside);
+//         return () => document.removeEventListener('mousedown', handleClickOutside);
+//     }, [openDropdown]);
+
+//     // const toggleDropdown = (type) => { setOpenDropdown(prev => (prev === type ? null : type)); };
+
+//     const handleSelect = (type, value) => {
+//         setSelectedValues(prev => ({ ...prev, [type]: value }));
+//         setOpenDropdown(null);
+//     };
+
+//     const renderDropdown = (type, label) => (
+//         <div
+//             ref={dropdownRefs[type]}
+//             style={{ marginBottom: '1.5rem', position: 'relative', width: '200px' }}
+//         >
+//             {/* <div
+//                 onClick={() => toggleDropdown(type)}
+//                 style={{
+//                     padding: '0.5rem 1rem',
+//                     border: '1px solid #ccc',
+//                     borderRadius: '6px',
+//                     backgroundColor: '#f9f9f9',
+//                     cursor: 'pointer'
+//                 }}
+//             >
+//                 {selectedValues[type] || `Select ${label}`}
+//             </div> */}
+
+//             {openDropdown === type && (
+//                 <div
+//                     style={{
+//                         position: 'absolute',
+//                         top: '105%',
+//                         left: 0,
+//                         right: 0,
+//                         backgroundColor: '#fff',
+//                         border: '1px solid #ccc',
+//                         borderRadius: '6px',
+//                         boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
+//                         zIndex: 10
+//                     }}
+//                 >
+//                     {dropdownOptions[type].map((option, idx) => (
+//                         <div
+//                             key={idx}
+//                             onClick={() => handleSelect(type, option)}
+//                             style={{
+//                                 padding: '0.5rem 1rem',
+//                                 cursor: 'pointer',
+//                                 borderBottom: idx !== dropdownOptions[type].length - 1 ? '1px solid #eee' : 'none',
+//                                 backgroundColor: selectedValues[type] === option ? '#e6f7ff' : '#fff'
+//                             }}
+//                             onMouseEnter={(e) => (e.target.style.background = '#f0f0f0')}
+//                             onMouseLeave={(e) =>
+//                                 (e.target.style.background = selectedValues[type] === option ? '#e6f7ff' : '#fff')}
+//                         >
+//                             {option}
+//                         </div>
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
+
+//     return (
+//         <div style={{ padding: '2rem' }}>
+//             {renderDropdown('country', 'Country')}
+//             {renderDropdown('language', 'Language')}
+//             {renderDropdown('theme', 'Theme')}
+//         </div>
+//     );
+// };
+
+// export default FixedDropdowns;
